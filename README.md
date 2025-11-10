@@ -1,6 +1,6 @@
 # Jinja Switchport Generator
 
-This project generates Cisco switch interface configuration from a CSV file using a Jinja2 template. It’s meant for small labs or repeatable builds where you don’t want to hand-type every `interface` block.
+This project generates switch interface configuration from a CSV file using a Jinja2 template. It’s meant for small labs or repeatable builds where you don’t want to hand-type every `interface` block.
 
 ## Features
 

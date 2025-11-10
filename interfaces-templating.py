@@ -2,26 +2,26 @@ import csv
 import os
 from jinja2 import Template
 
-# Jinja template file name
-interface_template_file = "Cisco-switchport-interface-template.j2"
+# ask user which csv to use
+csv_file = input("Enter CSV filename (default: switch-ports-example.csv): ").strip()
+if not csv_file:
+    csv_file = "switch-ports-example.csv"
 
-# Load the Jinja template
-with open(interface_template_file) as f:
+template_file = "Cisco-switchport-interface-template.j2"
+
+# load template
+with open(template_file) as f:
     interface_template = Template(f.read(), keep_trailing_newline=True)
 
-# Make sure we have an output directory
+# make output dir
 output_dir = "output"
 os.makedirs(output_dir, exist_ok=True)
 
-# Read the CSV and build configs per device
-with open("switch-ports.csv", newline="") as f:
+device_configs = {}
+
+with open(csv_file, newline="") as f:
     reader = csv.DictReader(f)
-
-    # Dictionary to hold all configs per device
-    device_configs = {}
-
     for row in reader:
-        # Strip whitespace from CSV fields just in case
         device = row["Device"].strip()
         interface = row["Interface"].strip()
         vlan = row["VLAN"].strip()
@@ -29,11 +29,9 @@ with open("switch-ports.csv", newline="") as f:
         link = row["Link"].strip()
         purpose = row["Purpose"].strip()
 
-        # Make sure the device key exists
         if device not in device_configs:
             device_configs[device] = ""
 
-        # Render the template for this interface
         interface_config = interface_template.render(
             interface=interface,
             vlan=vlan,
@@ -42,13 +40,12 @@ with open("switch-ports.csv", newline="") as f:
             purpose=purpose,
         )
 
-        # Append to this device's config text
         device_configs[device] += interface_config
 
-# Write one file per device
+# write per-device files
 for device, config in device_configs.items():
-    output_path = os.path.join(output_dir, f"{device}-interface_configs.txt")
-    with open(output_path, "w") as out_f:
-        out_f.write(config)
+    out_path = os.path.join(output_dir, f"{device}-interface_configs.txt")
+    with open(out_path, "w") as f:
+        f.write(config)
 
-print("Config files generated in ./output")
+print(f"Configs written to {output_dir}/")

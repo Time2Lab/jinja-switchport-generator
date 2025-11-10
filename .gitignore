@@ -11,5 +11,11 @@ __pycache__/
 # But keep the example CSV in version control
 !switch-ports-example.csv
 
+# Ignore everything inside private-templates/
+private-templates/*
+
+# But keep the folder itself (so it exists in the repo)
+!private-templates/.gitkeep
+
 # macOS-specific files (optional, prevents hidden clutter)
 .DS_Store

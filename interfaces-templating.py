@@ -8,7 +8,7 @@ if not csv_file:
     csv_file = "switch-ports-example.csv"
 
 # ask user which Jinja2 Template to use
-template_file = input("Enter J2 filename (default: Cisco-switchport-interface-template.j2): ").sttrip()
+template_file = input("Enter J2 filename (default: Cisco-switchport-interface-template.j2): ").strip()
 if not csv_file:
     csv_file = "Cisco-switchport-interface-template.j2"
 

@@ -9,7 +9,7 @@ __pycache__/
 *.csv
 
 # But keep the example CSV in version control
-!switch-ports.csv
+!switch-ports-example.csv
 
 # macOS-specific files (optional, prevents hidden clutter)
 .DS_Store

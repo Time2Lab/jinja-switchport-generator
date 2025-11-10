@@ -1,3 +1,15 @@
+# Ignore generated configuration files
 output/
+
+# Ignore Python cache and compiled files
 __pycache__/
 *.pyc
+
+# Ignore all CSVs (these might contain sensitive data)
+*.csv
+
+# But keep the example CSV in version control
+!switch-ports.csv
+
+# macOS-specific files (optional, prevents hidden clutter)
+.DS_Store
